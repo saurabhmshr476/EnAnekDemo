@@ -8,7 +8,6 @@ target 'EnAnek' do
   # Pods for EnAnek
 pod 'SimpleImageViewer', '~> 1.1.1'
 
-pod 'CoreDataManager', '~> 0.8.2'
 pod 'Alamofire', '~> 4.7'
 pod 'CRNotifications'
 pod 'SDWebImage', '~> 4.0'
