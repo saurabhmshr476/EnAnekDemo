@@ -11,7 +11,7 @@ import UIKit
 class FlickrImgCell: UICollectionViewCell {
     let thumbImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
