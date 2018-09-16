@@ -1,0 +1,34 @@
+PODS:
+  - Alamofire (4.7.3)
+  - CRNotifications (1.1.5)
+  - HGPlaceholders (0.3.0)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
+  - SimpleImageViewer (1.1.1)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.7)
+  - CRNotifications
+  - HGPlaceholders
+  - SDWebImage (~> 4.0)
+  - SimpleImageViewer (~> 1.1.1)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - CRNotifications
+    - HGPlaceholders
+    - SDWebImage
+    - SimpleImageViewer
+
+SPEC CHECKSUMS:
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  CRNotifications: 38bd824eea18b77d818e7a317253d2b475f6a241
+  HGPlaceholders: 2df01c51b04a30acd0b8c9c7161c7cdde4541109
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  SimpleImageViewer: 34c3a2cde2d9ac022146772cefc27fca14b0c8b1
+
+PODFILE CHECKSUM: 0ebc5fffcddb3ca987efb57ba01b4c56b2ae4499
+
+COCOAPODS: 1.5.3
