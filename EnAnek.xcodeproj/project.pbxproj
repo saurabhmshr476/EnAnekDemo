@@ -20,6 +20,8 @@
 		CE51AD36214E40C300BFF62C /* FlickrImgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51AD30214E40C300BFF62C /* FlickrImgCell.swift */; };
 		CE51AD37214E40C300BFF62C /* FlickrHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51AD32214E40C300BFF62C /* FlickrHelper.swift */; };
 		CE51AD39214E4F0200BFF62C /* Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51AD38214E4F0200BFF62C /* Connectivity.swift */; };
+		CE51AD3F214EB55C00BFF62C /* EkAnek.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE51AD3D214EB55C00BFF62C /* EkAnek.xcdatamodeld */; };
+		CE51AD41214EB83300BFF62C /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51AD40214EB83300BFF62C /* DBManager.swift */; };
 		EFC481B360F55B0E8E820DC4 /* Pods_EnAnekUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CF1EA7268B6AA2ECFF926CD /* Pods_EnAnekUITests.framework */; };
 		F1849DBC29EF771558C060DD /* Pods_EnAnek.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D75F650B5D9D976BBCB9782 /* Pods_EnAnek.framework */; };
 /* End PBXBuildFile section */
@@ -68,6 +70,8 @@
 		CE51AD30214E40C300BFF62C /* FlickrImgCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrImgCell.swift; sourceTree = "<group>"; };
 		CE51AD32214E40C300BFF62C /* FlickrHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrHelper.swift; sourceTree = "<group>"; };
 		CE51AD38214E4F0200BFF62C /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
+		CE51AD3E214EB55C00BFF62C /* EkAnek.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EkAnek.xcdatamodel; sourceTree = "<group>"; };
+		CE51AD40214EB83300BFF62C /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		D7D5E11B097F6ACF5E8A0A2A /* Pods_EnAnekTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EnAnekTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -156,6 +160,8 @@
 				CE51AD04214E3E2300BFF62C /* Assets.xcassets */,
 				CE51AD06214E3E2300BFF62C /* LaunchScreen.storyboard */,
 				CE51AD09214E3E2300BFF62C /* Info.plist */,
+				CE51AD3D214EB55C00BFF62C /* EkAnek.xcdatamodeld */,
+				CE51AD40214EB83300BFF62C /* DBManager.swift */,
 			);
 			path = EnAnek;
 			sourceTree = "<group>";
@@ -352,17 +358,21 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-EnAnek/Pods-EnAnek-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CRNotifications/CRNotifications.framework",
+				"${BUILT_PRODUCTS_DIR}/CoreDataManager/CoreDataManager.framework",
 				"${BUILT_PRODUCTS_DIR}/HGPlaceholders/HGPlaceholders.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SimpleImageViewer/SimpleImageViewer.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CRNotifications.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CoreDataManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HGPlaceholders.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SimpleImageViewer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -432,7 +442,9 @@
 			files = (
 				CE51AD35214E40C300BFF62C /* ViewController.swift in Sources */,
 				CE51AD36214E40C300BFF62C /* FlickrImgCell.swift in Sources */,
+				CE51AD3F214EB55C00BFF62C /* EkAnek.xcdatamodeld in Sources */,
 				CE51AD34214E40C300BFF62C /* FlickrPhoto.swift in Sources */,
+				CE51AD41214EB83300BFF62C /* DBManager.swift in Sources */,
 				CE51AD33214E40C300BFF62C /* FlickrSearchResults.swift in Sources */,
 				CE51AD37214E40C300BFF62C /* FlickrHelper.swift in Sources */,
 				CE51ACFE214E3E2200BFF62C /* AppDelegate.swift in Sources */,
@@ -769,6 +781,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CE51AD3D214EB55C00BFF62C /* EkAnek.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CE51AD3E214EB55C00BFF62C /* EkAnek.xcdatamodel */,
+			);
+			currentVersion = CE51AD3E214EB55C00BFF62C /* EkAnek.xcdatamodel */;
+			path = EkAnek.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CE51ACF2214E3E2200BFF62C /* Project object */;
 }

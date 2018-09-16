@@ -20,9 +20,9 @@ class FlickrHelper {
     }
     
     func pageCounter()-> Int{
-
         return page
     }
+    
     
     func searchFlickrForTerm(_ searchTerm: String, completion : @escaping (_ results: FlickrSearchResults?, _ error : NSError?) -> Void){
         
@@ -113,15 +113,8 @@ class FlickrHelper {
                     }
                     let flickrPhoto = FlickrPhoto(photoID: photoID, farm: farm, server: server, secret: secret)
                     flickrPhotos.append(flickrPhoto)
-                    /*guard let url = flickrPhoto.flickrImageURL(),
-                        let imageData = try? Data(contentsOf: url as URL) else {
-                            break
-                    }
                     
-                    if let image = UIImage(data: imageData) {
-                        flickrPhoto.thumbnail = image
-                        flickrPhotos.append(flickrPhoto)
-                    }*/
+                    
                 }
                 
                 OperationQueue.main.addOperation({
@@ -144,7 +137,7 @@ class FlickrHelper {
         }
         
         let URLString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(apiKey)&text=\(escapedTerm)&page=\(page)&per_page=50&format=json&nojsoncallback=1"
-        
+        print(page)
         guard let url = URL(string:URLString) else {
             return nil
         }

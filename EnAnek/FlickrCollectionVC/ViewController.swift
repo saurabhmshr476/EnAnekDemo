@@ -10,10 +10,10 @@ import UIKit
 import SDWebImage
 import SimpleImageViewer
 import CRNotifications
-class ViewController: UICollectionViewController {
 
+class ViewController: UICollectionViewController {
+    let dbManager = DBManager.sharedInstance
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    //let customNavigationAnimationController = CustomNavigationAnimatorController()
     var selectedIndexPath: IndexPath!
     private var searchTxt = ""
     private var waiting = false;
@@ -90,21 +90,34 @@ class ViewController: UICollectionViewController {
     
     // MARK: - LoadPaging Data
     func loadMoreData(){
-        let pageCounter = flickr.pageCounter() + 1
+         var pageCounter  = UserDefaults.standard.integer(forKey: searchBar.text!)
+            
+        if(pageCounter != 0)
+        {
+             pageCounter = pageCounter + 1
+        }else{
+             pageCounter = flickr.pageCounter() + 1
+
+        }
         flickr.setPageCounter(counter: pageCounter)
-        flickr.searchFlickrForTerm(searchBar.text!) {
+        flickr.searchFlickrForTerm(searchBar.text!) {[weak self]
             results, error in
-            self.spinner.stopAnimating()
+            self?.spinner.stopAnimating()
             if let error = error {
                 print("Error searching : \(error)")
                 return
             }
             if let results = results {
                 print("Found \(results.searchResults.count) matching \(results.searchTerm) page \(pageCounter)")
-                self.searches[0].searchResults.append(contentsOf: results.searchResults)
-                self.collectionView?.reloadData()
+                self?.dbManager.savePhotos(results.searchResults, searchTerm: results.searchTerm)
+                let photos:[FlickrPhoto] = (self?.dbManager.getPhotos(searchTerm: (self?.searchTxt)!))!
+                if(photos.count>0){
+                    UserDefaults.standard.set(pageCounter, forKey: (self?.searchBar.text!)!)
+                    self?.searches[0].searchResults.append(contentsOf: photos)
+                    self?.collectionView?.reloadData()
+                }
                 if(results.searchResults.count>0){
-                    self.waiting = false;
+                    self?.waiting = false;
                     
                 }
             }
@@ -158,7 +171,13 @@ extension ViewController: UISearchBarDelegate{
         print("searchText \(String(describing: searchBar.text))")
         searchBar.resignFirstResponder()
         searchTxt = searchBar.text!
-        
+        let photos:[FlickrPhoto] = dbManager.getPhotos(searchTerm: searchTxt)
+        let searchres = FlickrSearchResults(searchTerm: searchTxt, searchResults: photos)
+        if(photos.count>0){
+            self.searches.insert(searchres, at: 0)
+            self.collectionView?.reloadData()
+            return;
+        }
         
         if !Connectivity.isConnectedToInternet() {
             print("no internet is available.")
@@ -166,9 +185,9 @@ extension ViewController: UISearchBarDelegate{
             return
         }
         activityIndicator.startAnimating()
-        flickr.searchFlickrForTerm(searchBar.text!) {
+        flickr.searchFlickrForTerm(searchBar.text!) {[weak self]
             results, error in
-            self.activityIndicator.stopAnimating()
+            self?.activityIndicator.stopAnimating()
             
             
             if let error = error {
@@ -177,12 +196,18 @@ extension ViewController: UISearchBarDelegate{
             }
             
             if let results = results {
+                self?.dbManager.savePhotos(results.searchResults, searchTerm: results.searchTerm)
+                let tmpPhotos:[FlickrPhoto] = (self?.dbManager.getPhotos(searchTerm: (self?.searchTxt)!))!
                 
+                if(tmpPhotos.count>0){
+                    UserDefaults.standard.set(1, forKey: (self?.searchBar.text!)!)
+                    let tmpSearchres = FlickrSearchResults(searchTerm: (self?.searchTxt)!, searchResults: tmpPhotos)
+                    self?.searches.insert(tmpSearchres, at: 0)
+                    self?.collectionView?.reloadData()
+                }
                 print("Found \(results.searchResults.count) matching \(results.searchTerm)")
-                self.searches.insert(results, at: 0)
-                
-                
-                self.collectionView?.reloadData()
+                self?.searches.insert(results, at: 0)
+                self?.collectionView?.reloadData()
             }
         }
         
