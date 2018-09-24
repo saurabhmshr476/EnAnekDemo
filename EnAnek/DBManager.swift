@@ -36,6 +36,19 @@ class DBManager
        
         
     }
+    
+    func removePhotos(searchTerm:String) {
+        let context = self.persistentContainer.viewContext
+        let fetchRequest : NSFetchRequest<FlickrPhotos> = FlickrPhotos.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "searchString == %@", searchTerm.lowercased())
+        if let result = try? context.fetch(fetchRequest) {
+            for object in result {
+                context.delete(object)
+                self.saveContext()
+            }
+        }
+    }
+    
     func getPhotos(searchTerm:String)->[FlickrPhoto]
     {
         let context = self.persistentContainer.viewContext

@@ -136,8 +136,8 @@ class FlickrHelper {
             return nil
         }
         
-        let URLString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(apiKey)&text=\(escapedTerm)&page=\(page)&per_page=50&format=json&nojsoncallback=1"
-        print(page)
+        let URLString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(apiKey)&text=\(escapedTerm)&page=\(page)&per_page=12&format=json&nojsoncallback=1"
+        print("URLString \(page) & \(URLString)")
         guard let url = URL(string:URLString) else {
             return nil
         }

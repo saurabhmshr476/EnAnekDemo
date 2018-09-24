@@ -12,6 +12,7 @@ pod 'Alamofire', '~> 4.7'
 pod 'CRNotifications'
 pod 'SDWebImage', '~> 4.0'
 pod 'HGPlaceholders'
+pod 'LCUIComponents'
   target 'EnAnekTests' do
     inherit! :search_paths
     # Pods for testing

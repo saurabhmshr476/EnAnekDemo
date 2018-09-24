@@ -146,6 +146,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CRNotifications/CRNotifications.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/HGPlaceholders/HGPlaceholders.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/LCUIComponents/LCUIComponents.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SimpleImageViewer/SimpleImageViewer.framework"
 fi
@@ -153,6 +154,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CRNotifications/CRNotifications.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/HGPlaceholders/HGPlaceholders.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/LCUIComponents/LCUIComponents.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SimpleImageViewer/SimpleImageViewer.framework"
 fi

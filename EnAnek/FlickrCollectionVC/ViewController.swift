@@ -10,9 +10,14 @@ import UIKit
 import SDWebImage
 import SimpleImageViewer
 import CRNotifications
+import LCUIComponents
+
 
 class ViewController: UICollectionViewController {
+    
     let dbManager = DBManager.sharedInstance
+    var searchTerms = [String]()
+    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var selectedIndexPath: IndexPath!
     private var searchTxt = ""
@@ -58,6 +63,8 @@ class ViewController: UICollectionViewController {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
+       
+
     }
     
     
@@ -99,6 +106,7 @@ class ViewController: UICollectionViewController {
              pageCounter = flickr.pageCounter() + 1
 
         }
+        
         flickr.setPageCounter(counter: pageCounter)
         flickr.searchFlickrForTerm(searchBar.text!) {[weak self]
             results, error in
@@ -107,8 +115,10 @@ class ViewController: UICollectionViewController {
                 print("Error searching : \(error)")
                 return
             }
+            
             if let results = results {
                 print("Found \(results.searchResults.count) matching \(results.searchTerm) page \(pageCounter)")
+                self?.searches[0].searchResults = [FlickrPhoto]()
                 self?.dbManager.savePhotos(results.searchResults, searchTerm: results.searchTerm)
                 let photos:[FlickrPhoto] = (self?.dbManager.getPhotos(searchTerm: (self?.searchTxt)!))!
                 if(photos.count>0){
@@ -167,23 +177,34 @@ class ViewController: UICollectionViewController {
 
 // MARK: - UISearchBarDelegate
 extension ViewController: UISearchBarDelegate{
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchTerms=[String]()
+        if((UserDefaults.standard.object(forKey: "searchTerms")) != nil){
+            searchTerms=[String]()
+            searchTerms=UserDefaults.standard.object(forKey: "searchTerms") as! [String]
+        }
+        searchTerms.append(searchBar.text!)
+        UserDefaults.standard.set(searchTerms, forKey: "searchTerms")
+        self.searches  = [FlickrSearchResults]()
+        self.collectionView?.reloadData()
         print("searchText \(String(describing: searchBar.text))")
         searchBar.resignFirstResponder()
         searchTxt = searchBar.text!
-        let photos:[FlickrPhoto] = dbManager.getPhotos(searchTerm: searchTxt)
-        let searchres = FlickrSearchResults(searchTerm: searchTxt, searchResults: photos)
-        if(photos.count>0){
-            self.searches.insert(searchres, at: 0)
-            self.collectionView?.reloadData()
-            return;
-        }
-        
         if !Connectivity.isConnectedToInternet() {
+            let photos:[FlickrPhoto] = dbManager.getPhotos(searchTerm: searchTxt)
+            let searchres = FlickrSearchResults(searchTerm: searchTxt, searchResults: photos)
+            if(photos.count>0){
+                self.searches.insert(searchres, at: 0)
+                self.collectionView?.reloadData()
+                return;
+            }
             print("no internet is available.")
             CRNotifications.showNotification(type: CRNotifications.error, title: "Connectivity!", message: "No internet connection. Please try after some time", dismissDelay: 3)
             return
         }
+        self.dbManager.removePhotos(searchTerm: searchBar.text!)
+        UserDefaults.standard.set(1, forKey: (self.searchBar.text!))
         activityIndicator.startAnimating()
         flickr.searchFlickrForTerm(searchBar.text!) {[weak self]
             results, error in
@@ -198,9 +219,8 @@ extension ViewController: UISearchBarDelegate{
             if let results = results {
                 self?.dbManager.savePhotos(results.searchResults, searchTerm: results.searchTerm)
                 let tmpPhotos:[FlickrPhoto] = (self?.dbManager.getPhotos(searchTerm: (self?.searchTxt)!))!
-                
                 if(tmpPhotos.count>0){
-                    UserDefaults.standard.set(1, forKey: (self?.searchBar.text!)!)
+                   // UserDefaults.standard.set(1, forKey: (self?.searchBar.text!)!)
                     let tmpSearchres = FlickrSearchResults(searchTerm: (self?.searchTxt)!, searchResults: tmpPhotos)
                     self?.searches.insert(tmpSearchres, at: 0)
                     self?.collectionView?.reloadData()
@@ -213,6 +233,36 @@ extension ViewController: UISearchBarDelegate{
         
     }
     
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        
+        
+        if((UserDefaults.standard.object(forKey: "searchTerms")) != nil){
+            var termsdata = UserDefaults.standard.object(forKey: "searchTerms") as! [String]
+            let contains = termsdata.contains(where: { $0 == searchBar.text! as String })
+            if(!contains){
+                termsdata.append(searchBar.text!)
+                UserDefaults.standard.set(termsdata, forKey: "searchTerms")
+            }else{
+                var i = 1
+                var serachListTerms:[LCTuple<Int>] = []
+                for serachTerm in termsdata{
+                    let tp:LCTuple = (key: i, value:serachTerm)
+                    serachListTerms.append(tp)
+                    i=i+1
+                }
+                let popover = LCPopover<Int>(for: searchBar, title: "Previous searches") { tuple in
+                    // Use of the selected tuple
+                    guard let value = tuple?.value else { return }
+                    print(value)
+                    
+                }
+                popover.dataList = serachListTerms
+                present(popover, animated: true, completion: nil)
+            }
+        }
+        
+        return true
+    }
 }
 
 // MARK: - UICollectionViewDataSource

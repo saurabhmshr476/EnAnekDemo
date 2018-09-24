@@ -2,6 +2,7 @@ PODS:
   - Alamofire (4.7.3)
   - CRNotifications (1.1.5)
   - HGPlaceholders (0.3.0)
+  - LCUIComponents (1.1.5)
   - SDWebImage (4.4.2):
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
@@ -11,6 +12,7 @@ DEPENDENCIES:
   - Alamofire (~> 4.7)
   - CRNotifications
   - HGPlaceholders
+  - LCUIComponents
   - SDWebImage (~> 4.0)
   - SimpleImageViewer (~> 1.1.1)
 
@@ -19,6 +21,7 @@ SPEC REPOS:
     - Alamofire
     - CRNotifications
     - HGPlaceholders
+    - LCUIComponents
     - SDWebImage
     - SimpleImageViewer
 
@@ -26,9 +29,10 @@ SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   CRNotifications: 38bd824eea18b77d818e7a317253d2b475f6a241
   HGPlaceholders: 2df01c51b04a30acd0b8c9c7161c7cdde4541109
+  LCUIComponents: 9e40b911c7155e30056f213cd67fed6c924a5115
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   SimpleImageViewer: 34c3a2cde2d9ac022146772cefc27fca14b0c8b1
 
-PODFILE CHECKSUM: 1c6a8bff732b8bd8ba9f945efe0d6b7b1079d5df
+PODFILE CHECKSUM: 81700bce2da8dd6693ed6d89339c43c2b0df4ece
 
 COCOAPODS: 1.5.3

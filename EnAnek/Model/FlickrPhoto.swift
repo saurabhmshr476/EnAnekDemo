@@ -34,6 +34,7 @@ class FlickrPhoto{
     
     func flickrImageURLStr(_ size:String = "m") -> String {
          let urlStr =  "https://farm\(farm).staticflickr.com/\(server)/\(photoID)_\(secret)_\(size).jpg"
+        print("urlStr for photo \(urlStr)")
         return urlStr
     }
     
